@@ -51,14 +51,22 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Future<bool> _onWillPop() async {
+    return false;
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: ListView.builder(
-          itemCount: apps.length,
-          itemBuilder: _buildAppItems,
-        )
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        body: SafeArea(
+          child: ListView.builder(
+            itemCount: apps.length,
+            itemBuilder: _buildAppItems,
+          )
+        ),
       ),
     );
   }
