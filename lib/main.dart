@@ -35,17 +35,19 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void getApps() async {
-    apps = await DeviceApps.getInstalledApplications();
+    apps = await DeviceApps.getInstalledApplications(includeAppIcons: true, includeSystemApps: true, onlyAppsWithLaunchIntent: true);
     setState(() {
       apps=apps;
     });
   }
 
   Widget _buildAppItems(BuildContext context, int index) {
+    ApplicationWithIcon app = apps[index];
     return ListTile(
       contentPadding: EdgeInsets.all(10.0),
-      title: Text(apps[index].appName),
-      onTap: () => DeviceApps.openApp(apps[index].packageName),
+      leading: CircleAvatar(backgroundColor: Colors.black,child: Image.memory(app.icon),),
+      title: Text(app.appName),
+      onTap: () => DeviceApps.openApp(app.packageName),
     );
   }
 
